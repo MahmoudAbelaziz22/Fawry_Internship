@@ -49,6 +49,15 @@ function install_docker_with_apt(){
     then
         print_colored "green" "Docker engine already exist."
         print_colored "white" ""
+        docker-compose --version
+        compose_exist=$(echo $?)
+        if [[ $compose_exist=0 ]]
+        then
+          print_colored "green" "Docker compose already exist."
+          print_colored "white" ""
+        else
+          sudo apt-get install docker-compose-plugin
+        fi
     else
         sudo apt-get update
         sudo apt-get install \
@@ -65,6 +74,8 @@ function install_docker_with_apt(){
         sudo apt-get update
         sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
         sudo docker --version
+
+        sudo apt-get install docker-compose-plugin
     fi
 }
 
@@ -82,6 +93,15 @@ function install_docker_with_yum(){
     then
        print_colored "green" "Docker engine already exist."
        print_colored "white" ""
+       docker-compose --version
+       compose_exist=$(echo $?)
+       if [[ $compose_exist=0 ]]
+       then
+          print_colored "green" "Docker compose already exist."
+          print_colored "white" ""
+       else
+          sudo yum install docker-compose-plugin
+        fi
     else
        sudo yum install -y yum-utils
        sudo yum-config-manager \
@@ -91,6 +111,8 @@ function install_docker_with_yum(){
        sudo systemctl start docker
 
        sudo docker --version
+
+       sudo yum install docker-compose-plugin
     
     fi
 
