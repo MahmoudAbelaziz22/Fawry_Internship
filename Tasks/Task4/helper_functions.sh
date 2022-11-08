@@ -48,6 +48,7 @@ function install_docker_with_apt(){
     if [[ $is_exist=0 ]]
     then
         print_colored "green" "Docker engine already exist."
+        print_colored "white" ""
     else
         sudo apt-get update
         sudo apt-get install \
@@ -80,6 +81,7 @@ function install_docker_with_yum(){
     if [[ $is_exist=0 ]]
     then
        print_colored "green" "Docker engine already exist."
+       print_colored "white" ""
     else
        sudo yum install -y yum-utils
        sudo yum-config-manager \
@@ -93,33 +95,74 @@ function install_docker_with_yum(){
     fi
 
 }
-function run_wordpress() {
-    git clone https://github.com/MahmoudAbelaziz22/Fawry_internship.git
-    cd ./Fawry internship/Labs/dockerWordpress
+##################################################
+# configure and run docker-compose to start wordpress.
+# Arguments:
+#  USERNAME
+# Usage:      configure_wordpress USERNAME
+##################################################
+function configure_wordpress() {
+    USERNAME=$1
+    cd "./Fawry_internship/Labs/dockerWordpress/"
+    print_colored "green" "Copying data to local volume..."
+    print_colored "white" ""
     sudo docker-compose up -d
     sudo docker-compose down
     sudo rm -r /var/lib/docker/volumes/dockerwordpress_wp-data/_data
     sudo cp -r ./dockerwordpress_wp-data/_data/ /var/lib/docker/volumes/dockerwordpress_wp-data/
+    print_colored "green" "Starting your app..."
+    print_colored "white" ""
     sudo docker-compose up -d
-    google-chrome http://localhost:8888
+    sudo -u $USERNAME bash -c 'google-chrome http://localhost:8888'
+    print_colored "green" "Doneeeeeeee!."
+}
+##################################################
+# run configure_wordpress function or clone repo and then run.
+# Arguments:
+#   USERNAME
+# Usage:      run_wordpress USERNAME
+##################################################
+function run_wordpress() {
+    USERNAME=$1
+    print_colored "green" "Wordpress set up..."
+    print_colored "white" ""
+    if [[ -d "Fawry_internship" ]]
+    then
+        #call configure_wordpress function
+        configure_wordpress "$USERNAME"
+    else
+        print_colored "green" "Cloning git repo..."
+        print_colored "white" ""
+        git clone https://github.com/MahmoudAbelaziz22/Fawry_internship.git
+        #call configure_wordpress function
+        configure_wordpress "$USERNAME"
+    fi
+
 }
 ##################################################
 # installing docker using apt-get package manager.
 # Arguments:
-#   OS_Dist
-# Usage:      check_distrbution OS_Dist
+#   OS_Dist and USERNAME
+# Usage:      check_distrbution OS_Dist USERNAME
 ##################################################
 check_distrbution() {
     OS_Dist=$1
+    USERNAME=$2
 
     if [[ $OS_Dist="ubuntu" || $OS_Dist="debian" ]]
     then
+        #call install_docker_with_apt function
         install_docker_with_apt
+        #call run_wordpress function
+        run_wordpress "$USERNAME"
 
 
     elif [[ $OS_Dist="centos" || $OS_Dist="rhel" ]]
     then
+        #call install_docker_with_yum function
         install_docker_with_yum
+        #call run_wordpress function
+        run_wordpress "$USERNAME"
     else
        print_colored "red" "Can not identify Linux distrbution."
     fi
