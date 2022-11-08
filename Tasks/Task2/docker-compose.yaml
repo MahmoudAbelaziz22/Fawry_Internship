@@ -1,8 +1,8 @@
 services:
   redis:
-    image: resis
+    image: '"redis:lts"'
   web:
     build: .
     ports:
-      - 8000:5000
+    - 8000:5000
 version: '3.9'
