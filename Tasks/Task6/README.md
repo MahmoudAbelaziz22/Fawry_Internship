@@ -1,4 +1,4 @@
-# Task1:
+# Task6:
 write a bash script do this:\
     1- get the process id from process name.\
     2- use process id to kill the process.
