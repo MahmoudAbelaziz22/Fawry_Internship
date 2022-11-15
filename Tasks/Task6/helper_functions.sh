@@ -38,20 +38,28 @@ function welcome_message() {
 
 function kill_process(){
     process_name=$1
-    process_id=$(ps -Af | grep "$process_name" | grep -v grep | awk '{print$2}')
-    if [ -z "$process_id" ]
-    then
-        print_colored "red" "${process_name} is not running or its name is wrong."
-    else
-        print_colored "purple" "${process_name} PID is : ${process_id}"
-        print_colored "green" "killing the proess..."
-        sudo kill -15 $process_id
+    ps -Af | grep "$process_name" | grep -v grep | awk '{print$2}' >process_id.txt
+    if [ -s process_id.txt ]
+    then 
+        for pid in $(cat process_id.txt)
+        do
+            print_colored "purple" "${process_name} PID is : ${pid}"
+            print_colored "green" "killing the proess..."
+            echo $pid
+            sudo kill -9 $pid
+        done
         print_colored "green" "The process killed successfully."
+    else
+        print_colored "red" "${process_name} is not running or its name is wrong."
     fi
+    # process_id=$(ps -Af | grep "$process_name" | grep -v grep | awk '{print$2}')
+    # if [ -z "$process_id" ]
+    # then
+    #     print_colored "red" "${process_name} is not running or its name is wrong."
+    # else
+    #     print_colored "purple" "${process_name} PID is : ${process_id}"
+    #     print_colored "green" "killing the proess..."
+    #     sudo kill -15 $process_id
+    #     print_colored "green" "The process killed successfully."
+    # fi
 }
-# if [ -z "$process_id" ]
-# then
-#       echo "\$var is empty"
-# else
-#       echo "\$var is NOT empty"
-# fi
