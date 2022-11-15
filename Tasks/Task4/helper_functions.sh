@@ -45,13 +45,13 @@ function install_docker_with_apt(){
     print_colored "white" ""
     docker -v
     is_exist=$(echo $?)
-    if [[ $is_exist=0 ]]
+    if [ $is_exist -eq 0 ]
     then
         print_colored "green" "Docker engine already exist."
         print_colored "white" ""
         docker-compose --version
         compose_exist=$(echo $?)
-        if [[ $compose_exist=0 ]]
+        if [ $compose_exist -eq 0 ]
         then
           print_colored "green" "Docker compose already exist."
           print_colored "white" ""
@@ -89,13 +89,13 @@ function install_docker_with_yum(){
     print_colored "white" ""
     docker -v
     is_exist=$(echo $?)
-    if [[ $is_exist=0 ]]
+    if [ $is_exist -eq 0 ]
     then
        print_colored "green" "Docker engine already exist."
        print_colored "white" ""
        docker-compose --version
        compose_exist=$(echo $?)
-       if [[ $compose_exist=0 ]]
+       if [ $compose_exist -eq 0 ]
        then
           print_colored "green" "Docker compose already exist."
           print_colored "white" ""
