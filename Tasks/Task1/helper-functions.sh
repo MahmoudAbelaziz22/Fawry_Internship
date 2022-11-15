@@ -45,7 +45,8 @@ install_docker_with_apt(){
     print_colored "white" ""
     docker -v
     is_exist=$(echo $?)
-    if [[ $is_exist=0 ]]
+    echo $is_exist
+    if [ $is_exist -eq 0 ]
     then
         print_colored "green" "Docker engine already exist."
     else
