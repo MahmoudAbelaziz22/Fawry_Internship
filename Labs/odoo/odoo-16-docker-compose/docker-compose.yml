@@ -1,0 +1,29 @@
+version: '3'
+services:
+  db:
+    image: postgres:15
+    user: root
+    env_file:
+      - .env
+    restart: always             # run as a service
+    volumes:
+        - postgres:/var/lib/postgresql/data
+
+  odoo16:
+    image: odoo:16
+    user: root
+    depends_on:
+      - db
+    ports:
+      - "8069:8069"
+    tty: true
+    command: --
+    env_file:
+      - .env
+    volumes:
+      - data:/var/lib/odoo
+    restart: always             # run as a service
+    
+volumes:
+  postgres:
+  data:
