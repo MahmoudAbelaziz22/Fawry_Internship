@@ -24,5 +24,5 @@ cd ./Fawry internship/Tasks/Task9
 ```
 4- run docker_build_and_push.sh :
 ```
-./docker_build_and_push.sh
+./docker_build_and_push.sh laravel "https://ecommerceBIS:glpat-dvLRZp4ey2_NHNgHX1tc@gitlab.com/mahmoudabdelaziz/ecommerceBIS.git"
 ```
