@@ -3,9 +3,11 @@ secretGenerator:
   literals:
   - password=YOUR_PASSWORD
 resources:
+  - ./db/pv.yml
   - ./db/volume.yml
   - ./db/deployment.yml
   - ./db/svc.yml
+  - ./app/pv.yml
   - ./app/volume.yml
   - ./app/deployment.yml
   - ./app/svc.yml

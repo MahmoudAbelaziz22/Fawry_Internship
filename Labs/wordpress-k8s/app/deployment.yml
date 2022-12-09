@@ -19,19 +19,7 @@ spec:
     spec:
       containers:
       - image: wordpress:4.8-apache
-        imagePullPolicy: IfNotPresent
         name: wordpress
-        livenessProbe:
-            initialDelaySeconds: 10
-            periodSeconds: 15
-            tcpSocket:
-              port: 80
-            timeoutSeconds: 30
-        readinessProbe:
-            initialDelaySeconds: 10
-            periodSeconds: 10
-            tcpSocket:
-              port: 80
         env:
         - name: WORDPRESS_DB_HOST
           value: wordpress-mysql

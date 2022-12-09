@@ -3,11 +3,10 @@ kind: PersistentVolumeClaim
 metadata:
   name: mysql-pv-claim
   labels:
-    app: wordpress-mysql
+    app: wordpress
 spec:
   accessModes:
-    - ReadWriteMany
-  storageClassName: "standard"
+    - ReadWriteOnce
   resources:
     requests:
       storage: 5Gi

@@ -7,8 +7,8 @@ metadata:
 spec:
   storageClassName: standard
   capacity:
-    storage: 20Gi # Sets PV Volume
+    storage: 10Gi # Sets PV Volume
   accessModes:
     - ReadWriteMany
   hostPath:
-    path: "/data/mysql" # Sets the volume's path
+    path: "/mnt/data" # Sets the volume's path
