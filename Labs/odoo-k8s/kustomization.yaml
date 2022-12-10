@@ -1,0 +1,8 @@
+resources:
+  - ./configMap.yml
+  - ./db/pv.yml
+  - ./db/pvc.yml
+  - ./db/deployment.yml
+  - ./db/svc.yml
+  - ./app/deployment.yml
+  - ./app/svc.yml
