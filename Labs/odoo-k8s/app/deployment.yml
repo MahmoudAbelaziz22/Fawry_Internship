@@ -19,6 +19,24 @@ spec:
         image: testmailqwer/odo:14
         ports:
         - containerPort: 8069
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8069
+          initialDelaySeconds: 3
+          periodSeconds: 3
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8069
+          initialDelaySeconds: 3
+          periodSeconds: 3
+        startupProbe:
+          httpGet:
+            path: /
+            port: 8069
+          failureThreshold: 10
+          periodSeconds: 10
         env:
         - name: HOST
           value: postgres

@@ -17,6 +17,16 @@ spec:
           image: postgres:10.1 # Sets Image
           ports:
             - containerPort: 5432  # Exposes container port
+          readinessProbe:
+            tcpSocket:
+              port: 5432
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            tcpSocket:
+              port: 5432
+            initialDelaySeconds: 15
+            periodSeconds: 20
           envFrom:
             - configMapRef:
                 name: postgres-config
