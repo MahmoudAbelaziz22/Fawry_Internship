@@ -5,9 +5,9 @@ secretGenerator:
 resources:
   - ./db/pv.yml
   - ./db/volume.yml
-  - ./db/deployment.yml
+  - ./db/statefulset.yml
   - ./db/svc.yml
   - ./app/pv.yml
   - ./app/volume.yml
-  - ./app/deployment.yml
+  - ./app/daemonSet.yml
   - ./app/svc.yml
